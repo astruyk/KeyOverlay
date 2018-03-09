@@ -5,8 +5,29 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:KeyOverlay"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
-        
+        Title="MainWindow" Height="450" Width="50"
+        Closing="Window_Closing"
+        Loaded="Window_Initialized">
+    <Window.CommandBindings>
+        <CommandBinding Command="local:CustomCommands.Exit" CanExecute="ExitCommand_CanExecute" Executed="ExitCommand_Executed" />
+        <CommandBinding Command="local:CustomCommands.PressShift" CanExecute="CommandShift_CanExecute" Executed="CommandShift_Executed" />
+        <CommandBinding Command="local:CustomCommands.DockRight" CanExecute="CommandDock_CanExecute" Executed="CommandDock_Executed" />
+    </Window.CommandBindings>
+    <Grid x:Name="grid">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Menu>
+            <MenuItem Header="File">
+                <MenuItem Command="local:CustomCommands.DockRight" />
+                <Separator />
+                <MenuItem Command="local:CustomCommands.Exit" />
+            </MenuItem>
+        </Menu>
+
+        <Grid Grid.Row="1">
+            <Button Command="local:CustomCommands.PressShift" Content="{Binding Command.Name, Mode=OneWay, RelativeSource={RelativeSource Self}}"  />
+        </Grid>
     </Grid>
 </Window>
